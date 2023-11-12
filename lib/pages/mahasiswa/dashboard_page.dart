@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:muhamad_flutter_siakad_app/pages/mahasiswa/absensi_page.dart';
+
+import 'package:muhamad_flutter_siakad_app/pages/mahasiswa/jadwal_matkul_page.dart';
 import 'package:muhamad_flutter_siakad_app/pages/mahasiswa/khs_page.dart';
 import 'package:muhamad_flutter_siakad_app/pages/mahasiswa/nilai_mk_page.dart';
-import 'package:muhamad_flutter_siakad_app/pages/mahasiswa/schedules_page.dart';
 
 import '../../common/components/menu_card.dart';
 import '../../common/components/search_input.dart';
@@ -38,12 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Row(
               children: [
                 IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const AbsensiPage();
-                    }));
-                  },
+                  onPressed: () {},
                   icon: const Icon(
                     Icons.qr_code_scanner,
                     color: ColorName.primary,
@@ -69,9 +64,11 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Kartu Hasil\nStudi',
           backgroundColor: const Color(0xff686BFF),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const KhsPage();
-            }));
+            Navigator.push(
+                context, //tambahkan ini ..
+                MaterialPageRoute(builder: (context) => const KhsPage()));
+
+            ///tambahkan ini
           },
           imagePath: Images.khs,
         ),
@@ -91,12 +88,14 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Jadwal\nMata Kuliah',
           backgroundColor: const Color(0xffFF68F0),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const SchedulesPage();
-            }));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const JadwalMatkulPage()));
           },
           imagePath: Images.jadwal,
         ),
+        const SizedBox(height: 40.0),
       ],
     );
   }

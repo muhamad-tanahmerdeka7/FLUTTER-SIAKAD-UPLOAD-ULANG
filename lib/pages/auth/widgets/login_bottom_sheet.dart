@@ -5,7 +5,9 @@ import '../../../bloc/login/login_bloc.dart';
 import '../../../common/components/buttons.dart';
 import '../../../common/components/custom_text_field.dart';
 import '../../../common/constants/colors.dart';
+import '../../../data/datasource/auth_local_datasource.dart';
 import '../../../data/models/request/auth_request_model.dart';
+import '../../dosen/dosen_page.dart';
 import '../../mahasiswa/mahasiswa_page.dart';
 
 class LoginBottomSheet extends StatefulWidget {
@@ -95,20 +97,38 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   state.maybeWhen(
                     orElse: () {},
                     loaded: (data) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const MahasiswaPage();
-                      }));
+                      AuthLocalDatasource().saveAuthData(data);
+                      if (data.user.roles == 'mahasiswa') {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const MahasiswaPage();
+                        }));
+                      } else {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const DosenPage();
+                        }));
+                      }
                     },
                     error: (message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Error - $message'),
-                        ),
-                      );
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Error"),
+                              content: Text(message),
+                            );
+                          });
                     },
                   );
                 },
+
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text('Error - $message'),
+                //   ),
+                // );
+
                 child: BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
                     return state.maybeWhen(
