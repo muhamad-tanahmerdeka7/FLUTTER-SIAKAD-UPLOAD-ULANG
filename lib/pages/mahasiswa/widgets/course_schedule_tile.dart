@@ -19,9 +19,9 @@ class CourseScheduleTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Column(
                 children: [
-                  Text(data.timeStart.format(context)),
+                  Text(data.startTime),
                   Text(
-                    data.timeEnd.format(context),
+                    data.endtTime,
                     style: const TextStyle(
                       color: ColorName.grey,
                     ),

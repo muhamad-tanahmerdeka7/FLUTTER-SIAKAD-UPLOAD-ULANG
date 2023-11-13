@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muhamad_flutter_siakad_app/bloc/khs/khs_bloc.dart';
 import 'package:muhamad_flutter_siakad_app/bloc/login/login_bloc.dart';
+import 'package:muhamad_flutter_siakad_app/bloc/schedules/schedules_bloc.dart';
 
 import 'data/datasource/auth_local_datasource.dart';
 import 'pages/auth/auth_page.dart';
@@ -16,8 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => KhsBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => KhsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SchedulesBloc(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
